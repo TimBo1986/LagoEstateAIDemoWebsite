@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immobilien Lead Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chat-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f7f7f7;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+
+        .message.bot .message-bubble {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .send-button:hover {
+            transform: scale(1.1);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-reply {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .quick-reply:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+        }
+
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background: #999;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>🏠 Immobilien-Assistent</h2>
+            <p>Finden Sie Ihre Traumimmobilie</p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        
+        <div class="chat-input-container">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    class="chat-input" 
+                    id="userInput" 
+                    placeholder="Ihre Nachricht..."
+                    disabled
+                >
+                <button class="send-button" id="sendButton" disabled>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="quickReplies" class="quick-replies"></div>
+        </div>
+    </div>
+
+    <script>
+        class ImmobilienChatbot {
+            constructor() {
+                this.messagesContainer = document.getElementById('chatMessages');
+                this.userInput = document.getElementById('userInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.quickRepliesContainer = document.getElementById('quickReplies');
+                
+                this.currentStep = 0;
+                this.leadData = {};
+                
+                this.questions = [
+                    {
+                        bot: "Willkommen! 👋 Ich bin Ihr persönlicher Immobilien-Assistent. Ich helfe Ihnen, die perfekte Immobilie zu finden. Wie darf ich Sie ansprechen?",
+                        field: "name",
+                        type: "text",
+                        validation: (value) => value.length >= 2
+                    },
+                    {
+                        bot: "Schön Sie kennenzulernen, {name}! Welche Art von Immobilie suchen Sie?",
+                        field: "propertyType",
+                        type: "choice",
+                        choices: ["Wohnung kaufen", "Haus kaufen", "Wohnung mieten", "Haus mieten", "Gewerbeimmobilie"],
+                        validation: (value) => true
+                    },
+                    {
+                        bot: "Ausgezeichnet! In welcher Stadt oder Region suchen Sie?",
+                        field: "location",
+                        type: "text",
+                        validation: (value) => value.length >= 2
+                    },
+                    {
+                        bot: "Was ist Ihr ungefähres Budget? (in €)",
+                        field: "budget",
+                        type: "text",
+                        validation: (value) => !isNaN(value.replace(/[^\d]/g, ''))
+                    },
+                    {
+                        bot: "Wie viele Zimmer sollte die Immobilie haben?",
+                        field: "rooms",
+                        type: "choice",
+                        choices: ["1-2 Zimmer", "3-4 Zimmer", "5-6 Zimmer", "7+ Zimmer"],
+                        validation: (value) => true
+                    },
+                    {
+                        bot: "Damit ich Ihnen die besten Angebote zusenden kann, benötige ich Ihre E-Mail-Adresse:",
+                        field: "email",
+                        type: "text",
+                        validation: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+                    },
+                    {
+                        bot: "Und zuletzt Ihre Telefonnummer für eine persönliche Beratung:",
+                        field: "phone",
+                        type: "text",
+                        validation: (value) => /^[\d\s\-\+\(\)]+$/.test(value) && value.length >= 10
+                    }
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                this.sendButton.addEventListener('click', () => this.handleUserInput());
+                this.userInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.handleUserInput();
+                    }
+                });
+                
+                // Start conversation
+                setTimeout(() => {
+                    this.showBotMessage(this.questions[0].bot);
+                    this.enableInput();
+                }, 1000);
+            }
+            
+            enableInput() {
+                this.userInput.disabled = false;
+                this.sendButton.disabled = false;
+                this.userInput.focus();
+            }
+            
+            disableInput() {
+                this.userInput.disabled = true;
+                this.sendButton.disabled = true;
+            }
+            
+            showBotMessage(message) {
+                // Replace placeholders with actual data
+                Object.keys(this.leadData).forEach(key => {
+                    message = message.replace(`{${key}}`, this.leadData[key]);
+                });
+                
+                // Show typing indicator first
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message bot';
+                typingDiv.innerHTML = `
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                `;
+                this.messagesContainer.appendChild(typingDiv);
+                this.scrollToBottom();
+                
+                // Replace with actual message after delay
+                setTimeout(() => {
+                    typingDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
+                    
+                    // Show quick replies if applicable
+                    const currentQuestion = this.questions[this.currentStep];
+                    if (currentQuestion && currentQuestion.type === 'choice') {
+                        this.showQuickReplies(currentQuestion.choices);
+                    }
+                    
+                    this.scrollToBottom();
+                }, 1500);
+            }
+            
+            showUserMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user';
+                messageDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
+                this.messagesContainer.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+            
+            showQuickReplies(choices) {
+                this.quickRepliesContainer.innerHTML = '';
+                choices.forEach(choice => {
+                    const button = document.createElement('button');
+                    button.className = 'quick-reply';
+                    button.textContent = choice;
+                    button.addEventListener('click', () => {
+                        this.userInput.value = choice;
+                        this.handleUserInput();
+                    });
+                    this.quickRepliesContainer.appendChild(button);
+                });
+            }
+            
+            clearQuickReplies() {
+                this.quickRepliesContainer.innerHTML = '';
+            }
+            
+            handleUserInput() {
+                const input = this.userInput.value.trim();
+                if (!input) return;
+                
+                const currentQuestion = this.questions[this.currentStep];
+                
+                // Validate input
+                if (!currentQuestion.validation(input)) {
+                    this.showValidationError(currentQuestion.field);
+                    return;
+                }
+                
+                // Show user message
+                this.showUserMessage(input);
+                this.clearQuickReplies();
+                
+                // Store data
+                this.leadData[currentQuestion.field] = input;
+                
+                // Clear input
+                this.userInput.value = '';
+                this.disableInput();
+                
+                // Move to next step
+                this.currentStep++;
+                
+                if (this.currentStep < this.questions.length) {
+                    // Show next question
+                    setTimeout(() => {
+                        this.showBotMessage(this.questions[this.currentStep].bot);
+                        this.enableInput();
+                    }, 1000);
+                } else {
+                    // All questions answered, submit data
+                    this.submitLead();
+                }
+            }
+            
+            showValidationError(field) {
+                let errorMessage = "Bitte geben Sie eine gültige Eingabe ein.";
+                
+                if (field === 'email') {
+                    errorMessage = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+                } else if (field === 'phone') {
+                    errorMessage = "Bitte geben Sie eine gültige Telefonnummer ein.";
+                } else if (field === 'budget') {
+                    errorMessage = "Bitte geben Sie einen gültigen Betrag ein.";
+                }
+                
+                this.showBotMessage(errorMessage);
+            }
+            
+            async submitLead() {
+                // Show submission message
+                setTimeout(() => {
+                    this.showBotMessage("Vielen Dank! 🎉 Ich verarbeite Ihre Anfrage...");
+                }, 1000);
+                
+                try {
+                    // Add timestamp
+                    this.leadData.timestamp = new Date().toISOString();
+                    this.leadData.source = 'Chatbot';
+                    
+                    // Send to your webhook endpoint
+                    // For demo purposes, we'll use a placeholder URL
+                    // Replace with your actual Make.com webhook or Netlify function URL
+                    const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
+                    
+                    const response = await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(this.leadData)
+                    });
+                    
+                    if (response.ok) {
+                        setTimeout(() => {
+                            this.showBotMessage("✅ Perfekt! Ihre Anfrage wurde erfolgreich übermittelt. Einer unserer Immobilienexperten wird sich innerhalb von 24 Stunden bei Ihnen melden. Haben Sie noch weitere Fragen?");
+                        }, 2500);
+                    } else {
+                        throw new Error('Submission failed');
+                    }
+                } catch (error) {
+                    console.error('Error submitting lead:', error);
+                    
+                    // For demo purposes, show success anyway
+                    setTimeout(() => {
+                        this.showBotMessage("✅ Demo-Modus: Ihre Daten wurden erfasst! In der Live-Version würden diese automatisch an Google Sheets gesendet werden.");
+                        
+                        // Show captured data for demo
+                        const dataDisplay = Object.entries(this.leadData)
+                            .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+                            .join('<br>');
+                        
+                        setTimeout(() => {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = 'message bot';
+                            messageDiv.innerHTML = `
+                                <div class="message-bubble" style="background: #e8f5e9; color: #2e7d32;">
+                                    <strong>Erfasste Daten:</strong><br>
+                                    ${dataDisplay}
+                                </div>
+                            `;
+                            this.messagesContainer.appendChild(messageDiv);
+                            this.scrollToBottom();
+                        }, 1000);
+                    }, 2500);
+                }
+            }
+            
+            scrollToBottom() {
+                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+            }
+        }
+        
+        // Initialize chatbot when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ImmobilienChatbot();
+        });
+    </script>
+</body>
+</html>
