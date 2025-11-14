@@ -5,595 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Lago Immobilien - Traumimmobilien am Gardasee</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #1a365d;
-            --secondary: #2563eb;
-            --accent: #10b981;
-            --text: #333;
-            --light: #f7fafc;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #1a365d; --secondary: #2563eb; --accent: #10b981; --text: #333; --light: #f7fafc; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: var(--text); }
 
         /* Header */
-        header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-
-        .language-switcher {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .lang-btn {
-            padding: 0.3rem 0.6rem;
-            border: 1px solid #ddd;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .lang-btn.active {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-        }
+        header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); transition: color 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+        
+        /* Mobile Nav Fix */
+        @media (max-width: 768px) { .nav-links { display: none; } }
 
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234b5563" width="1200" height="600"/><path fill="%239ca3af" d="M0 400L50 375L100 400L150 425L200 400L250 375L300 400L350 425L400 400L450 375L500 400L550 425L600 400L650 375L700 400L750 425L800 400L850 375L900 400L950 425L1000 400L1050 375L1100 400L1150 425L1200 400V600H0V400Z"/></svg>');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 6rem 2rem;
-            text-align: center;
+                        url('https://images.unsplash.com/photo-1584277362348-611962e74536?q=80&w=2070&auto=format&fit=crop'); /* Echtes Bild */
+            background-size: cover; background-position: center; color: white; padding: 6rem 2rem; text-align: center;
         }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            transition: transform 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.95; }
+        .cta-button { display: inline-block; padding: 1rem 2rem; background: var(--accent); color: white; text-decoration: none; border-radius: 5px; font-size: 1.1rem; transition: transform 0.3s; }
+        .cta-button:hover { transform: translateY(-2px); }
 
         /* Properties Grid */
-        .properties {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 3rem;
-        }
-
-        .property-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .property-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .property-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .property-image {
-            height: 250px;
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        .property-details {
-            padding: 1.5rem;
-        }
-
-        .property-title {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .property-location {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .property-price {
-            font-size: 1.5rem;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        .property-features {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: #666;
-        }
-
-        /* Chatbot Container */
-        .chatbot-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-
-        .chat-button {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-            color: white;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            transition: transform 0.3s;
-            position: relative;
-        }
-
-        .chat-button:hover {
-            transform: scale(1.1);
-        }
-
-        .pulse {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: var(--accent);
-            animation: pulse 2s infinite;
-            z-index: -1;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .chat-window {
-            position: absolute;
-            bottom: 90px;
-            right: 0;
-            width: 400px;
-            height: 600px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-window.open {
-            display: flex;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header h3 {
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: blink 2s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .close-chat {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 1.5rem;
-            overflow-y: auto;
-            background: #f9fafb;
-        }
-
-        .message {
-            margin-bottom: 1rem;
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .message.bot {
-            justify-content: flex-start;
-        }
-
-        .message.user {
-            justify-content: flex-end;
-        }
-
-        .message-bubble {
-            max-width: 75%;
-            padding: 0.8rem 1.2rem;
-            border-radius: 18px;
-            word-wrap: break-word;
-        }
-
-        .message.bot .message-bubble {
-            background: white;
-            color: var(--text);
-            border: 1px solid #e5e7eb;
-        }
-
-        .message.user .message-bubble {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-            color: white;
-        }
-
-        .typing-indicator {
-            display: flex;
-            gap: 0.3rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 18px;
-            width: fit-content;
-            border: 1px solid #e5e7eb;
-        }
-
-        .typing-indicator span {
-            width: 8px;
-            height: 8px;
-            background: #999;
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-indicator span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-indicator span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-            }
-            30% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .chat-input-container {
-            padding: 1.5rem;
-            background: white;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 25px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .chat-input:focus {
-            border-color: var(--secondary);
-        }
-
-        .send-button {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-        }
-
-        .send-button:hover {
-            transform: scale(1.1);
-        }
-
-        .quick-replies {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
-        }
-
-        .quick-reply {
-            background: white;
-            border: 2px solid var(--secondary);
-            color: var(--secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .quick-reply:hover {
-            background: var(--secondary);
-            color: white;
-        }
+        .properties { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 3rem; }
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .property-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .property-card:hover { transform: translateY(-5px); }
+        .property-image { height: 250px; background: linear-gradient(45deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
+        .property-details { padding: 1.5rem; }
+        .property-title { font-size: 1.3rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .property-location { color: #666; margin-bottom: 1rem; }
+        .property-price { font-size: 1.5rem; color: var(--accent); font-weight: bold; }
+        .property-features { display: flex; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee; }
+        .feature { display: flex; align-items: center; gap: 0.3rem; color: #666; }
 
         /* Footer */
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .property-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .chat-window {
-                width: 90%;
-                right: 5%;
-                height: 500px;
-            }
-        }
+        footer { background: var(--primary); color: white; padding: 3rem 2rem; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+        .footer-links a { color: white; text-decoration: none; opacity: 0.8; }
     </style>
 </head>
 <body>
-    <!-- Header -->
+
     <header>
         <nav>
             <div class="logo">🏠 Casa Lago Immobilien</div>
             <ul class="nav-links">
                 <li><a href="#properties">Immobilien</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#about">Über uns</a></li>
                 <li><a href="#contact">Kontakt</a></li>
             </ul>
-            <div class="language-switcher">
-                <button class="lang-btn active" data-lang="de">DE</button>
-                <button class="lang-btn" data-lang="it">IT</button>
-                <button class="lang-btn" data-lang="en">EN</button>
-            </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <h1>Ihr Traumhaus am Gardasee</h1>
         <p>Exklusive Immobilien in den schönsten Lagen · Deutsche Betreuung vor Ort</p>
         <a href="#properties" class="cta-button">Immobilien entdecken</a>
     </section>
 
-    <!-- Properties Section -->
     <section class="properties" id="properties">
         <h2 class="section-title">Aktuelle Angebote</h2>
         <div class="property-grid">
             <div class="property-card">
-                <div class="property-image">
-                    Villa mit Seeblick
-                </div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Villa Panorama</h3>
                     <p class="property-location">📍 Gardone Riviera</p>
                     <p class="property-price">€ 1.250.000</p>
                     <div class="property-features">
-                        <span class="feature">🛏️ 4 Zimmer</span>
+                        <span class="feature">🛏️ 4 Zi.</span>
                         <span class="feature">📐 280 m²</span>
                         <span class="feature">🏊 Pool</span>
                     </div>
                 </div>
             </div>
-
             <div class="property-card">
-                <div class="property-image">
-                    Moderne Wohnung
-                </div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Residenz am Hafen</h3>
                     <p class="property-location">📍 Desenzano del Garda</p>
                     <p class="property-price">€ 485.000</p>
                     <div class="property-features">
-                        <span class="feature">🛏️ 3 Zimmer</span>
+                        <span class="feature">🛏️ 3 Zi.</span>
                         <span class="feature">📐 120 m²</span>
                         <span class="feature">🚗 Garage</span>
                     </div>
                 </div>
             </div>
-
             <div class="property-card">
-                <div class="property-image">
-                    Rustico zum Renovieren
-                </div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Historisches Rustico</h3>
                     <p class="property-location">📍 Salò</p>
                     <p class="property-price">€ 320.000</p>
                     <div class="property-features">
-                        <span class="feature">🛏️ 5 Zimmer</span>
+                        <span class="feature">🛏️ 5 Zi.</span>
                         <span class="feature">📐 200 m²</span>
                         <span class="feature">🌳 Garten</span>
                     </div>
@@ -602,389 +116,13 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-links">
-                <a href="#impressum">Impressum</a>
-                <a href="#datenschutz">Datenschutz</a>
-                <a href="#agb">AGB</a>
-            </div>
             <p>© 2024 Casa Lago Immobilien · Powered by LagoNord AI</p>
         </div>
     </footer>
 
-    <!-- Chatbot -->
-    <div class="chatbot-container">
-        <div class="chat-window" id="chatWindow">
-            <div class="chat-header">
-                <h3>
-                    <span class="status-indicator"></span>
-                    LagoEstate AI Assistant
-                </h3>
-                <button class="close-chat" onclick="toggleChat()">×</button>
-            </div>
-            <div class="chat-messages" id="chatMessages"></div>
-            <div class="chat-input-container">
-                <div class="input-group">
-                    <input 
-                        type="text" 
-                        class="chat-input" 
-                        id="userInput" 
-                        placeholder="Ihre Nachricht..."
-                        disabled
-                    >
-                    <button class="send-button" id="sendButton" disabled>
-                        ➤
-                    </button>
-                </div>
-                <div id="quickReplies" class="quick-replies"></div>
-            </div>
-        </div>
-        <button class="chat-button" onclick="toggleChat()">
-            <span class="pulse"></span>
-            💬
-        </button>
-    </div>
-
-    <script>
-        // Multi-language support
-        const translations = {
-            de: {
-                welcome: "Willkommen bei Casa Lago! 👋 Ich bin Ihr KI-Assistent für Immobilien am Gardasee. Wie kann ich Ihnen helfen?",
-                quickReplies: ["Immobilie kaufen", "Immobilie mieten", "Verkaufen", "Beratung"],
-                propertyType: "Welche Art von Immobilie suchen Sie?",
-                budget: "Was ist Ihr ungefähres Budget?",
-                location: "Welche Orte am Gardasee interessieren Sie besonders?",
-                rooms: "Wie viele Zimmer sollte die Immobilie haben?",
-                contact: "Perfekt! Wie können wir Sie kontaktieren? Bitte geben Sie Ihre E-Mail-Adresse ein:",
-                phone: "Und Ihre Telefonnummer für eine persönliche Beratung:",
-                name: "Wie dürfen wir Sie ansprechen?",
-                thanks: "Vielen Dank! Unsere Experten melden sich innerhalb von 24 Stunden bei Ihnen. Haben Sie noch weitere Fragen?"
-            },
-            it: {
-                welcome: "Benvenuti a Casa Lago! 👋 Sono il vostro assistente AI per immobili sul Lago di Garda. Come posso aiutarvi?",
-                quickReplies: ["Comprare casa", "Affittare", "Vendere", "Consulenza"],
-                propertyType: "Che tipo di immobile state cercando?",
-                budget: "Qual è il vostro budget indicativo?",
-                location: "Quali località del Lago di Garda vi interessano?",
-                rooms: "Quante stanze dovrebbe avere l'immobile?",
-                contact: "Perfetto! Come possiamo contattarvi? Inserite il vostro indirizzo email:",
-                phone: "E il vostro numero di telefono per una consulenza personale:",
-                name: "Come possiamo chiamarvi?",
-                thanks: "Grazie! I nostri esperti vi contatteranno entro 24 ore. Avete altre domande?"
-            },
-            en: {
-                welcome: "Welcome to Casa Lago! 👋 I'm your AI assistant for Lake Garda properties. How can I help you?",
-                quickReplies: ["Buy property", "Rent", "Sell", "Consultation"],
-                propertyType: "What type of property are you looking for?",
-                budget: "What is your approximate budget?",
-                location: "Which Lake Garda locations interest you most?",
-                rooms: "How many rooms should the property have?",
-                contact: "Perfect! How can we contact you? Please enter your email address:",
-                phone: "And your phone number for personal consultation:",
-                name: "How may we address you?",
-                thanks: "Thank you! Our experts will contact you within 24 hours. Do you have any other questions?"
-            }
-        };
-
-        let currentLang = 'de';
-        let chatOpen = false;
-
-        // Language switcher
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                currentLang = e.target.dataset.lang;
-                
-                // Restart chat if open
-                if (chatOpen && chatBot) {
-                    chatBot.restart();
-                }
-            });
-        });
-
-        function toggleChat() {
-            const chatWindow = document.getElementById('chatWindow');
-            chatOpen = !chatOpen;
-            
-            if (chatOpen) {
-                chatWindow.classList.add('open');
-                if (!chatBot.initialized) {
-                    chatBot.init();
-                }
-            } else {
-                chatWindow.classList.remove('open');
-            }
-        }
-
-        // Enhanced Chatbot Class
-        class LagoEstateBot {
-            constructor() {
-                this.messagesContainer = document.getElementById('chatMessages');
-                this.userInput = document.getElementById('userInput');
-                this.sendButton = document.getElementById('sendButton');
-                this.quickRepliesContainer = document.getElementById('quickReplies');
-                
-                this.initialized = false;
-                this.currentStep = 0;
-                this.leadData = {};
-                
-                this.questions = [
-                    {
-                        field: "intent",
-                        type: "choice",
-                        getChoices: () => translations[currentLang].quickReplies
-                    },
-                    {
-                        field: "propertyType",
-                        type: "choice",
-                        choices: {
-                            de: ["Villa", "Wohnung", "Rustico", "Grundstück"],
-                            it: ["Villa", "Appartamento", "Rustico", "Terreno"],
-                            en: ["Villa", "Apartment", "Rustico", "Land"]
-                        }
-                    },
-                    {
-                        field: "location",
-                        type: "text"
-                    },
-                    {
-                        field: "budget",
-                        type: "text",
-                        validation: (value) => !isNaN(value.replace(/[^\d]/g, ''))
-                    },
-                    {
-                        field: "rooms",
-                        type: "choice",
-                        choices: {
-                            de: ["1-2 Zimmer", "3-4 Zimmer", "5-6 Zimmer", "7+ Zimmer"],
-                            it: ["1-2 locali", "3-4 locali", "5-6 locali", "7+ locali"],
-                            en: ["1-2 rooms", "3-4 rooms", "5-6 rooms", "7+ rooms"]
-                        }
-                    },
-                    {
-                        field: "name",
-                        type: "text"
-                    },
-                    {
-                        field: "email",
-                        type: "text",
-                        validation: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-                    },
-                    {
-                        field: "phone",
-                        type: "text",
-                        validation: (value) => /^[\d\s\-\+\(\)]+$/.test(value) && value.length >= 10
-                    }
-                ];
-            }
-            
-            init() {
-                this.initialized = true;
-                this.currentStep = 0;
-                this.leadData = {
-                    language: currentLang,
-                    timestamp: new Date().toISOString(),
-                    source: 'LagoEstate AI Chat'
-                };
-                
-                this.sendButton.addEventListener('click', () => this.handleUserInput());
-                this.userInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        this.handleUserInput();
-                    }
-                });
-                
-                // Start conversation
-                setTimeout(() => {
-                    this.showBotMessage(translations[currentLang].welcome);
-                    this.showQuickReplies(translations[currentLang].quickReplies);
-                    this.enableInput();
-                }, 1000);
-            }
-            
-            restart() {
-                this.messagesContainer.innerHTML = '';
-                this.quickRepliesContainer.innerHTML = '';
-                this.currentStep = 0;
-                this.leadData = {
-                    language: currentLang,
-                    timestamp: new Date().toISOString(),
-                    source: 'LagoEstate AI Chat'
-                };
-                
-                setTimeout(() => {
-                    this.showBotMessage(translations[currentLang].welcome);
-                    this.showQuickReplies(translations[currentLang].quickReplies);
-                    this.enableInput();
-                }, 500);
-            }
-            
-            enableInput() {
-                this.userInput.disabled = false;
-                this.sendButton.disabled = false;
-                this.userInput.focus();
-            }
-            
-            disableInput() {
-                this.userInput.disabled = true;
-                this.sendButton.disabled = true;
-            }
-            
-            showBotMessage(message) {
-                const typingDiv = document.createElement('div');
-                typingDiv.className = 'message bot';
-                typingDiv.innerHTML = `
-                    <div class="typing-indicator">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                `;
-                this.messagesContainer.appendChild(typingDiv);
-                this.scrollToBottom();
-                
-                setTimeout(() => {
-                    typingDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
-                    this.scrollToBottom();
-                }, 1500);
-            }
-            
-            showUserMessage(message) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message user';
-                messageDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
-                this.messagesContainer.appendChild(messageDiv);
-                this.scrollToBottom();
-            }
-            
-            showQuickReplies(choices) {
-                setTimeout(() => {
-                    this.quickRepliesContainer.innerHTML = '';
-                    choices.forEach(choice => {
-                        const button = document.createElement('button');
-                        button.className = 'quick-reply';
-                        button.textContent = choice;
-                        button.addEventListener('click', () => {
-                            this.userInput.value = choice;
-                            this.handleUserInput();
-                        });
-                        this.quickRepliesContainer.appendChild(button);
-                    });
-                }, 1600);
-            }
-            
-            clearQuickReplies() {
-                this.quickRepliesContainer.innerHTML = '';
-            }
-            
-            handleUserInput() {
-                const input = this.userInput.value.trim();
-                if (!input) return;
-                
-                const currentQuestion = this.questions[this.currentStep];
-                
-                // Validate if needed
-                if (currentQuestion.validation && !currentQuestion.validation(input)) {
-                    this.showBotMessage("Bitte überprüfen Sie Ihre Eingabe.");
-                    return;
-                }
-                
-                // Show user message
-                this.showUserMessage(input);
-                this.clearQuickReplies();
-                
-                // Store data
-                this.leadData[currentQuestion.field] = input;
-                
-                // Clear input
-                this.userInput.value = '';
-                this.disableInput();
-                
-                // Move to next step
-                this.currentStep++;
-                
-                if (this.currentStep < this.questions.length) {
-                    // Get next question text
-                    const nextQuestion = this.questions[this.currentStep];
-                    const questionText = translations[currentLang][nextQuestion.field] || 
-                                       `Bitte geben Sie ${nextQuestion.field} ein:`;
-                    
-                    setTimeout(() => {
-                        this.showBotMessage(questionText);
-                        
-                        // Show choices if available
-                        if (nextQuestion.type === 'choice') {
-                            const choices = nextQuestion.choices ? 
-                                          nextQuestion.choices[currentLang] : 
-                                          nextQuestion.getChoices();
-                            this.showQuickReplies(choices);
-                        }
-                        
-                        this.enableInput();
-                    }, 1000);
-                } else {
-                    // Submit lead
-                    this.submitLead();
-                }
-            }
-            
-            async submitLead() {
-                setTimeout(() => {
-                    this.showBotMessage(translations[currentLang].thanks);
-                }, 1000);
-                
-                // Here you would integrate with your webhook
-                console.log('Lead Data:', this.leadData);
-                
-                // Demo: Show captured data
-                setTimeout(() => {
-                    const dataDisplay = `
-                        <strong>📋 Erfasste Daten (Demo):</strong><br>
-                        Sprache: ${this.leadData.language}<br>
-                        Intent: ${this.leadData.intent}<br>
-                        Typ: ${this.leadData.propertyType}<br>
-                        Ort: ${this.leadData.location}<br>
-                        Budget: ${this.leadData.budget}<br>
-                        Zimmer: ${this.leadData.rooms}<br>
-                        Name: ${this.leadData.name}<br>
-                        Email: ${this.leadData.email}<br>
-                        Tel: ${this.leadData.phone}
-                    `;
-                    
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message bot';
-                    messageDiv.innerHTML = `
-                        <div class="message-bubble" style="background: #d1fae5; border-color: #10b981;">
-                            ${dataDisplay}
-                        </div>
-                    `;
-                    this.messagesContainer.appendChild(messageDiv);
-                    this.scrollToBottom();
-                    
-                    // Reset after delay
-                    setTimeout(() => {
-                        this.enableInput();
-                        this.currentStep = 0;
-                    }, 3000);
-                }, 3000);
-            }
-            
-            scrollToBottom() {
-                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-            }
-        }
-        
-        // Initialize chatbot
-        const chatBot = new LagoEstateBot();
-        
-        // Auto-open chat after 5 seconds (for demo)
-        setTimeout(() => {
-            const chatButton = document.querySelector('.chat-button');
-            chatButton.style.animation = 'pulse 0.5s 3';
-        }, 5000);
-    </script>
-</body>
+    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js" defer></script>
+    <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9VB04.js" defer></script>
+    </body>
 </html>
