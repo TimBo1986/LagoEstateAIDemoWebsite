@@ -126,13 +126,20 @@
   <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9VBO4.js"></script>
 
   <script>
-      // 5 Sekunden warten, nachdem die Seite geladen ist
+    // Warten, bis das gesamte HTML-Dokument geladen und geparst ist
+    document.addEventListener("DOMContentLoaded", function() {
+      // DANN erst den Timer starten
       setTimeout(function() {
-        // Befehl an den Botpress-Webchat: "Öffne das Fenster"
-        // (Dies löst automatisch deinen "Start"-Node aus)
-        window.botpressWebChat.open();
+        // Prüfen, ob das Botpress-Objekt sicher existiert
+        if (window.botpressWebChat) {
+          window.botpressWebChat.open();
+        } else {
+          // Falls es immer noch nicht klappt, siehst du das in der Konsole
+          console.error("Botpress WebChat konnte nicht initialisiert werden.");
+        }
       }, 5000); // 5000ms = 5 Sekunden
-    </script>  
+    });
+  </script>  
 
 </body>
 </html>
