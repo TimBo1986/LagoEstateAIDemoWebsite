@@ -122,9 +122,20 @@
         </div>
     </footer>
 
-    <!-- Botpress Webchat Integration -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9V8Q4.js" defer></script>
+  <!-- Botpress Webchat Integration -->
+    <script src="https://cdn.botpress.cloud/webchat/v1/client.js"></script>
+    <script>
+      window.botpressWebChat.init({
+        "botId": "eaff5b71-ffe5-4dc6-966d-694076459229",
+        "clientId": "9de46240-1173-45ee-a837-6dd476853456",
+        "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+        "messagingUrl": "https://messaging.botpress.cloud",
+        "botName": "LagoEstate AI",
+        "composerPlaceholder": "Schreib eine Nachricht...",
+        "themeColor": "#2563eb",
+        "showPoweredBy": false
+      });
+    </script>
 
 </body>
 </html>
