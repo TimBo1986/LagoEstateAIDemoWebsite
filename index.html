@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Lago Immobilien - Traumimmobilien am Gardasee</title>
     <style>
+        /* ... [CSS bleibt gleich] ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --primary: #1a365d; --secondary: #2563eb; --accent: #10b981; --text: #333; --light: #f7fafc; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: var(--text); }
-
-        /* ... [CSS-Stile bleiben unverändert] ... */
         header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
@@ -19,7 +18,7 @@
         @media (max-width: 768px) { .nav-links { display: none; } }
         .hero {
             background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)),
-                        url('https://images.unsplash.com/photo-1584277362348-611962e74536?q=80&w=2070&auto-format&fit=crop');
+                        url('https://images.unsplash.com/photo-1584277362348-611962348-611962e74536?q=80&w=2070&auto=format&fit=crop');
             background-size: cover; background-position: center; color: white; padding: 6rem 2rem; text-align: center;
         }
         .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
@@ -68,7 +67,7 @@
         
         <div class="property-grid">
             <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Villa Panorama</h3>
                     <p class="property-location">📍 Gardone Riviera</p>
@@ -81,7 +80,7 @@
                 </div>
             </div>
             <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Residenz am Hafen</h3>
                     <p class="property-location">📍 Desenzano del Garda</p>
@@ -94,7 +93,7 @@
                 </div>
             </div>
             <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Historisches Rustico</h3>
                     <p class="property-location">📍 Salò</p>
@@ -118,17 +117,5 @@
   <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
   <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9VB04.js"></script>
 
-  <script>
-    // Diese Funktion wird aufgerufen, sobald Botpress fertig geladen ist
-    // und das "window.botpressWebChat" Objekt erstellt hat.
-    window.addEventListener("webchatReady", function() {
-      // Warte 5 Sekunden, *nachdem* der Bot bereit ist
-      setTimeout(function() {
-        // Öffne den Chat
-        window.botpressWebChat.open();
-      }, 5000); // 5000ms = 5 Sekunden
-    });
-  </script>
-
-</body>
+  </body>
 </html>
