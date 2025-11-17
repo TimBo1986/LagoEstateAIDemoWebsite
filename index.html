@@ -23,7 +23,7 @@
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)),
-                        url('https://images.unsplash.com/photo-1584277362348-611962e74536?q=80&w=2070&auto-format&fit=crop'); /* Echtes Bild */
+                        url('https://images.unsplash.com/photo-1584277362348-611962e74536?q=80&w=2070&auto=format&fit=crop'); /* Echtes Bild */
             background-size: cover; background-position: center; color: white; padding: 6rem 2rem; text-align: center;
         }
         .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
@@ -73,49 +73,8 @@
 
     <section class="properties" id="properties">
         <h2 class="section-title">Aktuelle Angebote</h2>
-
-        <div id="chat-container" style="height: 500px; margin-bottom: 3rem; border: 1px solid #eee; border-radius: 10px; overflow: hidden;"></div>
         <div class="property-grid">
-            <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
-                <div class="property-details">
-                    <h3 class="property-title">Villa Panorama</h3>
-                    <p class="property-location">📍 Gardone Riviera</p>
-                    <p class="property-price">€ 1.250.000</p>
-                    <div class="property-features">
-                        <span class="feature">🛏️ 4 Zi.</span>
-                        <span class="feature">📐 280 m²</span>
-                        <span class="feature">🏊 Pool</span>
-                    </div>
-                </div>
             </div>
-            <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
-                <div class="property-details">
-                    <h3 class="property-title">Residenz am Hafen</h3>
-                    <p class="property-location">📍 Desenzano del Garda</p>
-                    <p class="property-price">€ 485.000</p>
-                    <div class="property-features">
-                        <span class="feature">🛏️ 3 Zi.</span>
-                        <span class="feature">📐 120 m²</span>
-                        <span class="feature">🚗 Garage</span>
-                    </div>
-                </div>
-            </div>
-            <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
-                <div class="property-details">
-                    <h3 class="property-title">Historisches Rustico</h3>
-                    <p class="property-location">📍 Salò</p>
-                    <p class="property-price">€ 320.000</p>
-                    <div class="property-features">
-                        <span class="feature">🛏️ 5 Zi.</span>
-                        <span class="feature">📐 200 m²</span>
-                        <span class="feature">🌳 Garten</span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <footer>
@@ -126,5 +85,23 @@
 
   <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
   <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9VB04.js" defer></script>
-  </body>
+
+  <script>
+    function tryOpenChat() {
+      // Prüfen, ob das Botpress-Objekt fertig geladen ist
+      if (window.botpressWebChat && typeof window.botpressWebChat.open === 'function') {
+        // Ja, es ist fertig. Öffne den Chat.
+        window.botpressWebChat.open();
+      } else {
+        // Nein, noch nicht fertig. Versuche es in 0.5 Sek. nochmal.
+        console.log("Warte auf Botpress...");
+        setTimeout(tryOpenChat, 500); // 500ms = 0.5 Sekunden
+      }
+    }
+
+    // Warte 5 Sekunden, bevor wir *anfangen* zu suchen.
+    setTimeout(tryOpenChat, 5000); // 5000ms = 5 Sekunden
+  </script>
+
+</body>
 </html>
