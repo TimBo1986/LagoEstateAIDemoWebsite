@@ -9,29 +9,23 @@
         :root { --primary: #1a365d; --secondary: #2563eb; --accent: #10b981; --text: #333; --light: #f7fafc; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: var(--text); }
 
-        /* Header */
+        /* ... [CSS-Stile bleiben unverändert] ... */
         header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         nav { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a { text-decoration: none; color: var(--text); transition: color 0.3s; }
         .nav-links a:hover { color: var(--secondary); }
-        
-        /* Mobile Nav Fix */
         @media (max-width: 768px) { .nav-links { display: none; } }
-
-        /* Hero Section */
         .hero {
             background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)),
-                        url('https://images.unsplash.com/photo-1584277362348-611962e74536?q=80&w=2070&auto=format&fit=crop'); /* Echtes Bild */
+                        url('https://images.unsplash.com/photo-1584277362348-611962e74536?q=80&w=2070&auto-format&fit=crop');
             background-size: cover; background-position: center; color: white; padding: 6rem 2rem; text-align: center;
         }
         .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.95; }
         .cta-button { display: inline-block; padding: 1rem 2rem; background: var(--accent); color: white; text-decoration: none; border-radius: 5px; font-size: 1.1rem; transition: transform 0.3s; }
         .cta-button:hover { transform: translateY(-2px); }
-
-        /* Properties Grid */
         .properties { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
         .section-title { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 3rem; }
         .property-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
@@ -44,8 +38,6 @@
         .property-price { font-size: 1.5rem; color: var(--accent); font-weight: bold; }
         .property-features { display: flex; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee; }
         .feature { display: flex; align-items: center; gap: 0.3rem; color: #666; }
-
-        /* Footer */
         footer { background: var(--primary); color: white; padding: 3rem 2rem; text-align: center; }
         .footer-content { max-width: 1200px; margin: 0 auto; }
         .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
@@ -76,7 +68,7 @@
         
         <div class="property-grid">
             <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Villa Panorama</h3>
                     <p class="property-location">📍 Gardone Riviera</p>
@@ -89,7 +81,7 @@
                 </div>
             </div>
             <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Residenz am Hafen</h3>
                     <p class="property-location">📍 Desenzano del Garda</p>
@@ -102,7 +94,7 @@
                 </div>
             </div>
             <div class="property-card">
-                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=500&q=60'); background-size: cover;"></div>
+                <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto-format&fit=crop&w=500&q=60'); background-size: cover;"></div>
                 <div class="property-details">
                     <h3 class="property-title">Historisches Rustico</h3>
                     <p class="property-location">📍 Salò</p>
@@ -123,24 +115,20 @@
         </div>
     </footer>
 
-  <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
-  <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9VB04.js"></script>
+  <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js" defer></script>
+  <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9VB04.js" defer></script>
 
   <script>
-    function tryOpenChat() {
-      // Prüfen, ob das Botpress-Objekt fertig geladen ist
-      if (window.botpressWebChat && typeof window.botpressWebChat.open === 'function') {
-        // Ja, es ist fertig. Öffne den Chat.
+    // Diese Funktion wird aufgerufen, sobald Botpress fertig geladen ist
+    // und das "window.botpressWebChat" Objekt erstellt hat.
+    // Das `inject.js` Skript sendet dieses "webchatReady" Event.
+    window.addEventListener("webchatReady", function() {
+      // Warte 5 Sekunden, *nachdem* der Bot bereit ist
+      setTimeout(function() {
+        // Öffne den Chat
         window.botpressWebChat.open();
-      } else {
-        // Nein, noch nicht fertig. Versuche es in 0.5 Sek. nochmal.
-        console.log("Warte auf Botpress...");
-        setTimeout(tryOpenChat, 500); // 500ms = 0.5 Sekunden
-      }
-    }
-
-    // Warte 5 Sekunden, bevor wir *anfangen* zu suchen.
-    setTimeout(tryOpenChat, 5000); // 5000ms = 5 Sekunden
+      }, 5000); // 5000ms = 5 Sekunden
+    });
   </script>
 
 </body>
