@@ -115,8 +115,18 @@
         </div>
     </footer>
 
-  <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
-  <script src="https://files.bpcontent.cloud/2025/11/14/21/20251114210034-9MH9VBO4.js" defer></script>
+  <script type="module">
+  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
+
+  Typebot.initBubble({
+    typebot: "lago-estate-ai-81dnjqy",
+    theme: {
+      button: { backgroundColor: "#0d9488" },
+      chatWindow: { backgroundColor: "#F8F8F8" },
+    },
+  });
+</script>
+
 
   </body>
 </html>
